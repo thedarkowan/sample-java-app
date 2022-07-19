@@ -1,12 +1,12 @@
 pipeline {
     agent any
     environment {
-        AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
-        AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
+        AWS_ACCESS_KEY_ID     = credentials('class-jenkins-aws-secret-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('class-jenkins-aws-secret-access-key')
         ARTIFACT_NAME = 'hello-world.war'
-        AWS_S3_BUCKET = 'jenkins-store'
-        AWS_EB_APP_NAME = 'assignment1'
-        AWS_EB_ENVIRONMENT = 'Assignment1-env'
+        AWS_S3_BUCKET = 'jenkins-storage-d3a1'
+        AWS_EB_APP_NAME = 'class-d3a1'
+        AWS_EB_ENVIRONMENT = 'Classd3a1-env'
         AWS_EB_APP_VERSION = "${BUILD_ID}"
     } 
     stages {
@@ -52,7 +52,6 @@ pipeline {
             post {
                 success {
                     archiveArtifacts artifacts: '**/target/**.war', followSymlinks: false
-
                     sh 'aws configure set region us-east-1'
                     sh 'aws s3 cp ./target/**.war s3://$AWS_S3_BUCKET/$ARTIFACT_NAME'
                 }
