@@ -12,13 +12,13 @@ phases:
   build:
     commands:
     - echo Build completed on date
-    - mvn compile
+    - mvn compile 
     - mvn test
   post_build:
     commands:
     - echo Build completed on date
     - mvn package
-    - cp target/*.war ROOT.war
+    - cp target/*.war helloworld.war
 artifacts:
   files:
-  - ROOT.war
+  - helloworld.war
